@@ -1,17 +1,17 @@
 global:
   storageClass: standard
 
-# livenessProbeHeaders:
-#   - name: X-Forwarded-Proto
-#     value: https
-# readinessProbeHeaders:
-#   - name: X-Forwarded-Proto
-#     value: https
+livenessProbeHeaders:
+  - name: X-Forwarded-Proto
+    value: https
+readinessProbeHeaders:
+  - name: X-Forwarded-Proto
+    value: https
 
 wordpressUsername: NTHINGs
 wordpressEmail: n_othing@hotmail.com
 wordpressBlogName: "Portafolio Yamile Garduño"
-wordpressScheme: http
+wordpressScheme: https
 
 service:
   type: ClusterIP
@@ -21,4 +21,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: "nginx"
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    cert-manager.io/cluster-issuer: "letsencrypt"
   hostname: portafolio.yamilegarduno.com
+  secrets: 
+    name: portafolio-yamile-tls
